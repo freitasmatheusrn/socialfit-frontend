@@ -1,11 +1,10 @@
 "use client"
 
 import { useIsMobile } from "@/hooks/use-is-mobile"
-import { MobileHome } from "./_components/mobile-home"
-import { DesktopHome } from "./_components/desktop-home"
+import { DesktopDashboard } from "./_components/desktop-dashboard"
 import { Skeleton } from "@/components/ui/skeleton"
 
-export default function HomePage() {
+export default function DashboardPage() {
   const isMobile = useIsMobile()
 
   if (isMobile === undefined) {
@@ -28,5 +27,13 @@ export default function HomePage() {
     )
   }
 
-  return isMobile ? <MobileHome /> : <DesktopHome />
+  if (isMobile) {
+    return (
+      <div className="min-h-screen bg-background p-4">
+        <p>Mobile dashboard coming soon</p>
+      </div>
+    )
+  }
+
+  return <DesktopDashboard />
 }

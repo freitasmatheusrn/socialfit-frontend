@@ -54,7 +54,7 @@ export default function Login() {
         toast.success("Login realizado com sucesso!",{
           richColors: true
         })
-        router.push("/home")
+        router.push("/explorar")
       } catch (err: any) {
         if (err.causes && err.causes.length > 0) {
           // Group causes by field

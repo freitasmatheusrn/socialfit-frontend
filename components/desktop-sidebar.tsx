@@ -39,7 +39,7 @@ const mainNavItems = [
   {
     title: "Dashboard",
     icon: LayoutDashboard,
-    href: "/home",
+    href: "/dashboard",
   },
   {
     title: "Eventos",
@@ -122,7 +122,7 @@ function AppSidebar() {
   return (
     <Sidebar collapsible="none" className="border-r border-sidebar-border">
       <SidebarHeader className="p-4">
-        <Link href="/home" className="flex items-center gap-2">
+        <Link href="/dashboard" className="flex items-center gap-2">
           <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <Dumbbell className="size-4" />
           </div>

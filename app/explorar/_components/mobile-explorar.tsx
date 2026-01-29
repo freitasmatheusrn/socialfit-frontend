@@ -1,6 +1,6 @@
 "use client"
 
-import { HomeHeader } from "./home-header"
+import { ExplorarHeader } from "./explorar-header"
 import { SearchBar } from "./search-bar"
 import { UpcomingEvents } from "./upcoming-events"
 import { SportsClasses } from "./sports-classes"
@@ -13,10 +13,10 @@ import {
   mockCategories,
 } from "../_lib/mock-data"
 
-export function MobileHome() {
+export function MobileExplorar() {
   return (
     <div className="min-h-screen bg-background pb-20">
-      <HomeHeader user={mockUser} />
+      <ExplorarHeader user={mockUser} />
       <SearchBar />
 
       <div className="mt-6 space-y-6">

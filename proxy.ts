@@ -7,7 +7,7 @@ function getBaseUrl(): string {
   if (process.env.NODE_ENV === "production") {
     return process.env.NEXT_PUBLIC_API_BASE_URL || ""
   }
-  return process.env.NEXT_PUBLIC_API_BASE_URL_DEV || "http://azjwfillta.loclx.io "
+  return process.env.NEXT_PUBLIC_API_BASE_URL_DEV || "http://localhost:8080"
 }
 
 function isPublicRoute(pathname: string): boolean {
@@ -37,8 +37,11 @@ export async function proxy(request: NextRequest) {
 
   // Protected route: if no access token but refresh token exists, try to refresh
   if (!accessToken && refreshToken) {
+    const refreshUrl = `${getBaseUrl()}/refresh`
+    console.log("[proxy] Attempting token refresh:", refreshUrl)
+
     try {
-      const refreshResponse = await fetch(`${getBaseUrl()}/refresh`, {
+      const refreshResponse = await fetch(refreshUrl, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -46,6 +49,8 @@ export async function proxy(request: NextRequest) {
           Cookie: `refresh_token=${refreshToken.value}`,
         },
       })
+
+      console.log("[proxy] Refresh response status:", refreshResponse.status)
 
       if (refreshResponse.ok) {
         // Get the Set-Cookie headers from the refresh response
@@ -62,8 +67,8 @@ export async function proxy(request: NextRequest) {
 
         return response
       }
-    } catch {
-      // Refresh failed, redirect to login
+    } catch (error) {
+      console.error("[proxy] Refresh failed:", error)
     }
 
     // No valid refresh, redirect to login

@@ -2,13 +2,13 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Compass, Ticket, User } from "lucide-react"
+import { Compass, Ticket, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useScrollDirection } from "@/hooks/use-scroll-direction"
 
 const navItems = [
-  { label: "Home", href: "/home", icon: Home },
-  { label: "Explorar", href: "/explore", icon: Compass },
+  { label: "Explorar", href: "/explorar", icon: Compass },
+  { label: "Atividades", href: "/explore", icon: Compass },
   { label: "Ingressos", href: "/tickets", icon: Ticket },
   { label: "Perfil", href: "/profile", icon: User },
 ]

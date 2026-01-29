@@ -30,6 +30,26 @@ function getBaseUrl(): string {
   return process.env.NEXT_PUBLIC_API_BASE_URL_DEV || "http://localhost:8080"
 }
 
+let refreshPromise: Promise<boolean> | null = null
+
+async function refreshAccessToken(): Promise<boolean> {
+  if (refreshPromise) {
+    return refreshPromise
+  }
+
+  refreshPromise = fetch(`${getBaseUrl()}/refresh`, {
+    method: "POST",
+    credentials: "include",
+  })
+    .then((res) => res.ok)
+    .catch(() => false)
+    .finally(() => {
+      refreshPromise = null
+    })
+
+  return refreshPromise
+}
+
 export async function api<T>(
   path: string,
   options?: ApiOptions
@@ -59,11 +79,16 @@ export async function api<T>(
   if (!res.ok) {
     const error = (await res.json()) as ApiError
 
-    // Handle 401 errors by redirecting to login (client-side only)
+    // Handle 401 errors by attempting token refresh (client-side only)
     if (res.status === 401 && !isServer && typeof window !== "undefined") {
       const errorCode = error.error as AuthErrorCode
       if (errorCode === AUTH_ERROR_CODES.UNAUTHENTICATED || errorCode === AUTH_ERROR_CODES.UNAUTHORIZED) {
+        const refreshed = await refreshAccessToken()
+        if (refreshed) {
+          return api<T>(path, options)
+        }
         window.location.href = "/login"
+        return undefined as T
       }
     }
 

@@ -5,7 +5,7 @@ import { DashboardHeader } from "./dashboard-header"
 import { StatsSection } from "./stats-section"
 import { KanbanBoard } from "./kanban-board"
 
-export function DesktopHome() {
+export function DesktopDashboard() {
   return (
     <DesktopSidebarLayout>
       <div className="flex flex-col min-h-screen bg-muted/30">

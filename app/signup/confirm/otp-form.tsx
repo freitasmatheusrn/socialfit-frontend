@@ -110,7 +110,7 @@ export default function OtpConfirmForm({ phone, expiresAt }: OtpConfirmFormProps
       try {
         await signupConfirmation({ otp: value.otp })
         toast.success("Telefone confirmado com sucesso!")
-        router.push("/home")
+        router.push("/explorar")
       } catch (err: any) {
         // If there are field-specific errors, show them in the toast description
         const causesMessage = err.causes?.length

@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button"
 import { Bell, MapPin } from "lucide-react"
 import type { UserSummary } from "../_lib/types"
 
-interface HomeHeaderProps {
+interface ExplorarHeaderProps {
   user: UserSummary
 }
 
-export function HomeHeader({ user }: HomeHeaderProps) {
+export function ExplorarHeader({ user }: ExplorarHeaderProps) {
   return (
     <header className="flex items-center justify-between px-4 pt-6 pb-2">
       <div className="flex items-center gap-3">
